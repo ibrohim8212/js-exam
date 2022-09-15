@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="./css/main.css">
+    <title>Movie Search Website</title>
+
+</head>
+<body>
+    
+
+        <div class = "container-xl">
+            <div>
+                <h3 class="text-info text-center">Search Movie:</h3>
+                <input type = "text" class ="w-50 m-auto form-control" placeholder="Search Movie Title" id ="movie-search-box" onkeyup="findMovies()" onclick = "findMovies()">
+                
+                <div class = "d-flex flex-wrap justify-content-around mt-5 search-list" id = "search-list">
+
+                  <div class="spinner-border text-danger spiner" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+
+                </div>
+            </div>
+        </div>
+
+    <script src="bootstrap/js/bootstrap.js"></script>
+    <script src = "js/script.js"></script>
+</body>
+</html>

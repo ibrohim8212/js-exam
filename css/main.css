@@ -1,0 +1,11 @@
+body {
+  background-color: #5B5B5B;
+}
+
+.title {
+  max-width: 300px;
+}
+
+.spiner{
+  display: none;
+}
