@@ -103,7 +103,7 @@ const moviesFetch = async (title = "", categoty = "", page = 1) => {
     renderModal(data.Search);
 
   } catch {
-    error("Kechitasiz siz qidirgan kino y'oq");
+    error("Sorry, but we dont found your film!");
   }
   finally {
     spinnerAdd()
@@ -151,6 +151,8 @@ pageBtns.forEach(btn => {
       ++page;
       pageResult.textContent = page;
       moviesFetch(serchValue, selectValue, page);
+    } if (page > 10) {
+      alert("Please, stop it!")
     }
   })
 })
@@ -158,7 +160,7 @@ pageBtns.forEach(btn => {
 const error = (err) => {
   searchList.innerHTML = null;
   const errItem = document.createElement("li");
-  errItem.className = "alert alert-danger";
+  errItem.className = "text-white bg-danger item p-4";
   errItem.textContent = err;
 
   searchList.appendChild(errItem);
