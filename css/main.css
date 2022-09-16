@@ -6,6 +6,8 @@ body {
   max-width: 300px;
 }
 
-.spiner{
-  display: none;
+.search-list-item{
+background: #fff;
+border-radius: 10px;
+margin-bottom: 10px;
 }

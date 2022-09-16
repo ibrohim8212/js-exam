@@ -2,6 +2,13 @@ let movieSearchBox = document.getElementById("movie-search-box");
 let searchList = document.getElementById("search-list");
 let resultGrid = document.getElementById("result-grid");
 
+let elForm = document.querySelector(".btn-form")
+
+let pageBtns = document.querySelectorAll(".movies-btns-page");
+let pageResult = document.querySelector(".movies-page-res");
+let page = 1;
+
+const elSpinner = document.querySelector(".movies-spinner");
 
 async function loadMovies(searchTerm){
     let URL = `https://omdbapi.com/?s=${searchTerm}&page=1&apikey=85788913`;
@@ -85,4 +92,74 @@ window.addEventListener("click", (event) => {
     }
 });
 
+const moviesFetch = async (title = "", categoty = "", page = 1) => {
+  try {
+    const respone = await fetch(`https://www.omdbapi.com/?apikey=85788913&=${title}&type=${categoty}&page=${page}`);
 
+    const data = await respone.json();
+
+    moviesRender(data.Search);
+
+    renderModal(data.Search);
+
+  } catch {
+    error("Kechitasiz siz qidirgan kino y'oq");
+  }
+  finally {
+    spinnerAdd()
+  }
+}
+
+function spinnerRemove() {
+  elSpinner.classList.remove("d-none");
+}
+function spinnerAdd() {
+  elSpinner.classList.add("d-none");
+}
+
+
+elForm.addEventListener("submit", (evt) => {
+  evt.preventDefault();
+
+  searchList.innerHTML = null;
+  spinnerRemove();
+
+  page = 1;
+  pageResult.textContent = page;
+  serchValue = elInputSerach.value.toLowerCase().trim();
+  selectValue = elSelect.value;
+
+  moviesFetch(serchValue, selectValue, page);
+})
+
+let serchValue = "spider man";
+let selectValue = "movie";
+moviesFetch(serchValue, selectValue, page);
+
+spinnerRemove();
+
+
+pageBtns.forEach(btn => {
+  btn.addEventListener("click", () => {
+    if (btn.textContent == "preview") {
+      if (page > 1) {
+        --page;
+        pageResult.textContent = page;
+        moviesFetch(serchValue, selectValue, page);
+      }
+    } else {
+      ++page;
+      pageResult.textContent = page;
+      moviesFetch(serchValue, selectValue, page);
+    }
+  })
+})
+
+const error = (err) => {
+  searchList.innerHTML = null;
+  const errItem = document.createElement("li");
+  errItem.className = "alert alert-danger";
+  errItem.textContent = err;
+
+  searchList.appendChild(errItem);
+}
